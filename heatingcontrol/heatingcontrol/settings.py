@@ -1,4 +1,9 @@
 # Django settings for heatingcontrol project.
+import ConfigParser
+import os
+db_config = ConfigParser.ConfigParser()
+root_dir = os.path.sep.join(__file__.split(os.path.sep)[0:-3])
+db_config.readfp(open(os.path.join(root_dir, 'credentials/my.cnf')))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -9,13 +14,15 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'heatingcontrol',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'heatingcontrol',
-        'PASSWORD': 'ue3Pho2e',
+        'USER': db_config.get('client','user'),
+        'PASSWORD': db_config.get('client','password'),
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
