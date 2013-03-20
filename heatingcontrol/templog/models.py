@@ -4,7 +4,7 @@ from django.db import models
 
 class Temperature(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
-    temperature = models.IntegerField()
+    temperature = models.FloatField()
     probe = models.ForeignKey('Probe')
 
 class Probe(models.Model):
